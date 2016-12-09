@@ -7,7 +7,7 @@ return [
         'validation_rules' => [
             'name' => 'required',
             'email' => 'required|email',
-            'password' => 'required'
+            'password' => 'required|confirmed'
         ]
     ],
 

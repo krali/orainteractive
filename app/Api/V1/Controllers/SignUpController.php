@@ -25,9 +25,15 @@ class SignUpController extends Controller
         }
 
         $token = $JWTAuth->fromUser($user);
+        
         return response()->json([
-            'status' => 'ok',
-            'token' => $token
+            'success' => true,
+            'data' => [
+                'id' => $user->id,
+                'token' => $token,
+                'email' => $user->email,
+                'name' => $user->name
+            ]
         ], 201);
     }
 }

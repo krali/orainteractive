@@ -2,6 +2,7 @@
 
 namespace App\Api\V1\Controllers;
 
+use DB;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use Tymon\JWTAuth\JWTAuth;
 use App\Http\Controllers\Controller;
@@ -26,10 +27,16 @@ class LoginController extends Controller
             throw new HttpException(500);
         }
 
-        return response()
-            ->json([
-                'status' => 'ok',
-                'token' => $token
-            ]);
+        $user = DB::table('users')->where('email', $credentials['email'])->first();
+
+        return response()->json([
+            'success' => true,
+            'data' => [
+                'id' => $user->id,
+                'token' => $token,
+                'email' => $user->email,
+                'name' => $user->name
+            ]
+        ]);
     }
 }
