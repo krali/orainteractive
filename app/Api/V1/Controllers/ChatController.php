@@ -75,9 +75,9 @@ class ChatController extends Controller
                     'user'=>[
                         'id' => $user->id,
                         'name' => $user->name
-                    ]
+                    ],
+                    'last_message' => null
                 ],
-                'last_message' => null
             ]);
         }
     }

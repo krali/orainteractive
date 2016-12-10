@@ -1,6 +1,6 @@
 {
-    "name": "francescomalatesta/laravel-api-boilerplate-jwt",
-    "description": "An API Boilerplate to create a ready-to-use REST API in seconds.",
+    "name": "kris/laravelapi",
+    "description": "Ora API Assignment",
     "keywords": ["laravel", "api", "boilerplate", "jwt"],
     "license": "MIT",
     "type": "project",
