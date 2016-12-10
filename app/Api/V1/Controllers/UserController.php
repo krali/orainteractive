@@ -38,7 +38,6 @@ class UserController extends Controller
         $user->name = $request->name;
         $user->email = $request->email;
 
-
         if($user->save()){
             return response()->json([
                 'success' => true,

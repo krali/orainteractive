@@ -2,9 +2,10 @@
 
 namespace App\Api\V1\Controllers;
 
-use Request;
+use Illuminate\Http\Request;
 use App\User;
 use App\Message;
+use DB;
 use App\Api\V1\Requests\MessageCreateRequest;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use JWTAuth;
@@ -14,21 +15,29 @@ use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 
 class MessageController extends Controller
 {
-    // public function view(JWTAuth $JWTAuth)
-    // {
-    //     $user = JWTAuth::parseToken()->toUser();
-    //     $token = JWTAuth::fromUser($user);
+    public function get(Request $request, JWTAuth $JWTAuth, $id)
+    {
+        $limit = $request->input('limit');
 
-    //     return response()->json([
-    //         'success' => true,
-    //         'data' => [
-    //             'id' => $user->id,
-    //             'token' => $token,
-    //             'email' => $user->email,
-    //             'name' => $user->name
-    //         ]
-    //     ]);
-    // }
+        $messages = DB::table('messages')
+            ->select('id','user_id','chat_id','message','created_at')
+            ->where('chat_id','=',$id)
+            ->paginate($limit ? $limit : 15);
+
+        foreach ($messages as $message) {
+            $messageuser = DB::table('users')
+                ->select('id','name')
+                ->where('id','=',$message->user_id)
+                ->first();
+            $message->user = $messageuser;
+        }
+        
+
+        return response()->json([
+            'success' => true,
+            'data' => $messages
+        ]);
+    }
 
     public function post(MessageCreateRequest $request, JWTAuth $JWTAuth, $id)
     {

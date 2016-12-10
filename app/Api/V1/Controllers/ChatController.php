@@ -23,7 +23,7 @@ class ChatController extends Controller
         $chats = DB::table('chats')
             ->select('id','user_id','name','created_at')
             ->where('name','like','%'.$q.'%')
-            ->paginate($limit);
+            ->paginate($limit ? $limit : 15);
 
         foreach ($chats as $chat) {
             $chatuser = DB::table('users')
