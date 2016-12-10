@@ -31,6 +31,25 @@ return [
             'email' => 'required|email',
             'password' => 'required|confirmed'
         ]
-    ]
+    ],
+
+    'edit' => [
+        'validation_rules' => [
+            'name' => 'sometimes|filled',
+            'email' => 'sometimes|email'
+        ]
+    ],
+
+    'chatcreate' => [
+        'validation_rules' => [
+            'name' => 'required'
+        ]
+    ],
+
+    'messagecreate' => [
+        'validation_rules' => [
+            'message' => 'required'
+        ]
+    ],
 
 ];
